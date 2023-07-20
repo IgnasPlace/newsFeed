@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>products</title>
+</head>
+<body>
+  <h1 id="title"></h1>
+  <label for="product-select">Choose a product:</label>
+
+<select name="products" id="product-select">
+    <option value="">--Please choose a product--</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+</select>
+
+
+  <script>
+    let title = document.querySelector('#title');
+    let selectedID = document.querySelector('#product-select');
+
+    const fetchProduct = async (id) => {
+      const response = await fetch(`http://localhost:5000/products?id=${id}`);
+      
+      const product = await response.json();
+      return product
+    }
+
+    selectedID.addEventListener('change', (e) => {
+      const id = e.target.value;
+      
+        fetchProduct(id).then(product => title.textContent = product.title)
+      
+    })
+
+    // title.textContent = 'Patricia'
+
+  </script>
+</body>
+</html>
